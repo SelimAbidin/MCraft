@@ -377,8 +377,8 @@ class Cube {
         }
 
         if(this._rotationY === undefined) this._rotationY = 0
-        // this._rotationY++
-        this._rotationY = 45
+        this._rotationY++
+        // this._rotationY = 45
         
         let rotation = quat.fromEuler(this._quaternian, this._rotationY, this._rotationY, 0)
         mat4.fromQuat(this.model, rotation)
