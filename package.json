@@ -17,6 +17,7 @@
     "gl-matrix": "^2.4.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --hot --mode development"
+    "dev": "webpack-dev-server --hot --mode development",
+    "dev:build": "webpack --mode development"
   }
 }
