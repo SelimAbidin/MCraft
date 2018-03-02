@@ -50,7 +50,7 @@ class Cube {
         let p3 = vec3.fromValues(s, -s, s)
         let p4 = vec3.fromValues(-s, -s, s)
         
-
+        
             
         // FRONT
         this._vertices.push(p1[0], p1[1], p1[2])
@@ -62,6 +62,8 @@ class Cube {
         this._uvs.push(0,0, u,0, u,1, 0,1)
         
         let normal = normalCalculation(p3,p2,p1)
+
+        
         let xNormal = normal[0]
         let yNormal = normal[1]
         let zNormal = normal[2]
@@ -77,17 +79,17 @@ class Cube {
         let backMatrix = mat4.fromYRotation(mat4.create(), 90 * Math.PI / 180)
 
         let tempP = vec3.create()
-        let temp1 = vec3.create()
-        let temp2 = vec3.create()
-        let temp3 = vec3.create()
+        let temp1
+        let temp2
+        let temp3
         
-        vec3.clone(temp1, vec3.transformMat4(tempP, p1, backMatrix )) 
+        temp1 = vec3.clone(vec3.transformMat4(tempP, p1, backMatrix )) 
         this._vertices.push(tempP[0], tempP[1], tempP[2])
         
-        vec3.clone(temp2, vec3.transformMat4(tempP, p2, backMatrix ))
+        temp2 = vec3.clone(vec3.transformMat4(tempP, p2, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
-        vec3.clone(temp3,vec3.transformMat4(tempP, p3, backMatrix ))
+        temp3 = vec3.clone(vec3.transformMat4(tempP, p3, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
         vec3.transformMat4(tempP, p4, backMatrix )
@@ -99,7 +101,7 @@ class Cube {
         xNormal = normal[0]
         yNormal = normal[1]
         zNormal = normal[2]
-        console.log(temp3,temp2,temp1);
+
         
         this._normals.push(xNormal, yNormal, zNormal)
         this._normals.push(xNormal, yNormal, zNormal)
@@ -112,19 +114,30 @@ class Cube {
         // BACK
         backMatrix = mat4.fromYRotation(backMatrix, 180 * Math.PI / 180)
 
-        vec3.transformMat4(tempP, p1, backMatrix )
+        temp1 = vec3.clone(vec3.transformMat4(tempP, p1, backMatrix )) 
+        this._vertices.push(tempP[0], tempP[1], tempP[2])
+        
+        temp2 = vec3.clone(vec3.transformMat4(tempP, p2, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
-        vec3.transformMat4(tempP, p2, backMatrix )
-        this._vertices.push(tempP[0], tempP[1], tempP[2])
-
-        vec3.transformMat4(tempP, p3, backMatrix )
+        temp3 = vec3.clone(vec3.transformMat4(tempP, p3, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
         vec3.transformMat4(tempP, p4, backMatrix )
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
         this._uvs.push(0,0, u,0, u,1, 0,1)
+
+        normal = normalCalculation(temp3,temp2,temp1)
+        xNormal = normal[0]
+        yNormal = normal[1]
+        zNormal = normal[2]
+
+        
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
 
         // BACK END
         
@@ -132,36 +145,46 @@ class Cube {
         // LEFT
         backMatrix = mat4.fromYRotation(backMatrix, 270 * Math.PI / 180)
 
-        vec3.transformMat4(tempP, p1, backMatrix )
+        temp1 = vec3.clone(vec3.transformMat4(tempP, p1, backMatrix )) 
+        this._vertices.push(tempP[0], tempP[1], tempP[2])
+        
+        temp2 = vec3.clone(vec3.transformMat4(tempP, p2, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
-        vec3.transformMat4(tempP, p2, backMatrix )
-        this._vertices.push(tempP[0], tempP[1], tempP[2])
-
-        vec3.transformMat4(tempP, p3, backMatrix )
+        temp3 = vec3.clone(vec3.transformMat4(tempP, p3, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
         vec3.transformMat4(tempP, p4, backMatrix )
         this._vertices.push(tempP[0], tempP[1], tempP[2])
+
         this._uvs.push(0,0, u,0, u,1, 0,1)
-        // this._uvs.push(0,0, u,0, u,1, 0,1)
-        // this._uvs.push(0,0, u,0, u,1, 0,1)
-        // this._uvs.push(0,0, u,0, u,1, 0,1)
-        // this._uvs.push(0,0, u,0, u,1, 0,1)
+
+        normal = normalCalculation(temp3,temp2,temp1)
+        xNormal = normal[0]
+        yNormal = normal[1]
+        zNormal = normal[2]
+
+        
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
         // LEFT END
 
-
+       
+        
 
         // TOP
         backMatrix = mat4.fromXRotation(backMatrix, -90 * Math.PI / 180)
 
-        vec3.transformMat4(tempP, p1, backMatrix )
+       
+        temp1 = vec3.clone(vec3.transformMat4(tempP, p1, backMatrix )) 
+        this._vertices.push(tempP[0], tempP[1], tempP[2])
+        
+        temp2 = vec3.clone(vec3.transformMat4(tempP, p2, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
-        vec3.transformMat4(tempP, p2, backMatrix )
-        this._vertices.push(tempP[0], tempP[1], tempP[2])
-
-        vec3.transformMat4(tempP, p3, backMatrix )
+        temp3 = vec3.clone(vec3.transformMat4(tempP, p3, backMatrix ))
         this._vertices.push(tempP[0], tempP[1], tempP[2])
 
         vec3.transformMat4(tempP, p4, backMatrix )
@@ -172,7 +195,16 @@ class Cube {
         
         this._uvs.push(us,0, u,0, u,1, us,1)
 
-      
+        
+        normal = normalCalculation(temp3,temp2,temp1)
+        xNormal = normal[0]
+        yNormal = normal[1]
+        zNormal = normal[2]
+
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
 
         backMatrix = mat4.fromXRotation(backMatrix, 90 * Math.PI / 180)
 
@@ -192,6 +224,17 @@ class Cube {
          us = (1 / 3)
         this._uvs.push(us,0, u,0, u,1, us,1)
 
+
+        normal = normalCalculation(temp3,temp2,temp1)
+        xNormal = normal[0]
+        yNormal = normal[1]
+        zNormal = normal[2]
+
+        
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
+        this._normals.push(xNormal, yNormal, zNormal)
 
         this._indices = [
             2,1,0,
@@ -219,29 +262,39 @@ class Cube {
 
         var vertexSource  = `
         attribute vec3 a_position;
+        attribute vec3 a_normal;
         attribute vec2 a_uv;
         uniform mat4 proj;
         uniform mat4 model;
+        uniform mat4 tmodel;
         varying highp vec2 vTextureCoord;
-        varying highp vec3 tint;
+        varying vec3 v_normal;
         void main() {
-              vTextureCoord = a_uv;
-              vec4 dlight = vec4(3,3,0,1);
-              dlight = proj * dlight;
 
-              vec4 position = (proj * model) * vec4(a_position.x, a_position.y, a_position.z, 1.0);
-              float direct = dot(position.xyz , dlight.xyz);
-              tint = vec3(1.0, 1.0, 1.0);
-              gl_Position = position;
+            
+            mat4 modelProjection = proj * model;
+            vTextureCoord = a_uv;
+            vec4 position = modelProjection * vec4(a_position.x, a_position.y, a_position.z, 1.0);
+            gl_Position = position;
+
+            v_normal = mat3(tmodel) * a_normal; 
         }`;
 
         var fragmentSource = `
         precision mediump float;
-        varying highp vec2 vTextureCoord;
+        uniform vec3 lPos;
         uniform sampler2D uSampler;
-        varying highp vec3 tint;
+        varying highp vec2 vTextureCoord;
+        varying vec3 v_normal;
         void main() {
-              gl_FragColor = texture2D(uSampler, vTextureCoord) * vec4(tint, 1.0);
+
+            vec3 reverseLight = -lPos;
+            vec3 normal = normalize(v_normal);
+            float light = dot(normal, lPos);
+
+            gl_FragColor = texture2D(uSampler, vTextureCoord);
+            // gl_FragColor = vec4(normal.x,0,0,1);
+            gl_FragColor.rgb *= light;
         }`;
 
         let fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
@@ -267,7 +320,8 @@ class Cube {
         var shaderProgram = gl.createProgram();
 
         gl.bindAttribLocation(shaderProgram, 0,"a_position");
-        gl.bindAttribLocation(shaderProgram, 1, "a_uv");
+        gl.bindAttribLocation(shaderProgram, 2, "a_uv");
+        gl.bindAttribLocation(shaderProgram, 1, "a_normal");
 
         gl.attachShader(shaderProgram, vertexShader); 
         gl.attachShader(shaderProgram, fragmentShader); 
@@ -275,17 +329,23 @@ class Cube {
 
         // this.posLocation = gl.getAttribLocation(shaderProgram,'a_position')
         this.posLocation = 0
-        this.uvLocation = 1//gl.getAttribLocation(shaderProgram,'a_uv')
+        this.normalLocation = 1
+        this.uvLocation = 2
+        //gl.getAttribLocation(shaderProgram,'a_uv')
         // this.uvLocation = gl.getAttribLocation(shaderProgram,'a_uv')
 
         this._textureLocation = gl.getUniformLocation(shaderProgram, 'uSampler');
 
         var projLocation = gl.getUniformLocation(shaderProgram, "proj");
         var modelLocation = gl.getUniformLocation(shaderProgram, "model");
+        this._modelInverseTransposeLocation = gl.getUniformLocation(shaderProgram, "tmodel");
+        var lightPLocation = gl.getUniformLocation(shaderProgram, "lPos");
 
         this._projLocation = projLocation
         this._modelLocation = modelLocation
+        this._lightPLocation = lightPLocation
         this._program = shaderProgram
+        
 
         let pixelPositions = new Float32Array(this._vertices)
         let positionBuffer = gl.createBuffer();
@@ -301,11 +361,19 @@ class Cube {
         gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(this.uvLocation);
 
+        
+        let normalData = new Float32Array(this._normals)
+        let normalBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, normalData , gl.STATIC_DRAW);
+        gl.vertexAttribPointer(0, 3, gl.FLOAT, true, 0, 0);
+        gl.enableVertexAttribArray(this.normalLocation);
 
+        
         
         this._texture = gl.createTexture()
         gl.activeTexture(gl.TEXTURE0)
-         gl.bindTexture(gl.TEXTURE_2D, this._texture);
+        gl.bindTexture(gl.TEXTURE_2D, this._texture);
 
 
         const pixel = new Uint8Array([255, 0, 255, 255]);  // opaque blue
@@ -341,8 +409,12 @@ class Cube {
 
         this.indexBuffer = indexBuffer
         this.positionBuffer = positionBuffer
+        this.normalBuffer = normalBuffer
         this.uvBuffer = uvBuffer
-        this._gl = gl
+        this._gl = gl;
+
+        this.lpx = 0;
+        this.lpy = 0;
     }
 
     setX (x) {
@@ -361,12 +433,35 @@ class Cube {
     }
 
     update (p) {
+
         
         let gl = this._gl
-        
+        window.gl = gl;
         gl.useProgram(this._program)
         gl.uniformMatrix4fv(this._projLocation, false, p);  // offset it to the right half the screen
         
+        if(this.lPosX === undefined) {
+            this.lPosX = 0; 
+        }
+
+        this.lPosX += 0.04;
+        let lX = Math.round(100 * Math.sin(this.lPosX))
+        let lY = Math.round(100 * Math.cos(this.lPosX))
+
+        // lX = 0;
+        // lY = -40;
+        lX = this.lpx
+        lY = this.lpy
+
+        // lX = 0;
+        // lY = 0;
+        
+        var lpos = vec3.fromValues(lX, lY, 1)
+        // var lpos = vec3.fromValues(0.5, 0.7, 1);
+        lpos = vec3.normalize(vec3.create(),lpos)
+        
+        
+        gl.uniform3fv(this._lightPLocation, lpos)
         if(this._isTranslateDirty) {
 
             mat4.identity(this.model)
@@ -377,13 +472,27 @@ class Cube {
         }
 
         if(this._rotationY === undefined) this._rotationY = 0
-        this._rotationY++
-        // this._rotationY = 45
+        this._rotationY+=0.5;
+        this._rotationY = 45
         
+
+
         let rotation = quat.fromEuler(this._quaternian, this._rotationY, this._rotationY, 0)
+        // let rotation = quat.fromEuler(this._quaternian, this._rotationY, 0, 0)
+        // let rotation = quat.fromEuler(this._quaternian, 0, this._rotationY, 0)
         mat4.fromQuat(this.model, rotation)
+        
 
         gl.uniformMatrix4fv(this._modelLocation, false, this.model);  // offset it to the right half the screen
+
+        let temp = mat4.create();
+        mat4.invert(temp, this.model)
+        
+        let transposed = mat4.transpose(temp, temp)
+        
+
+        
+        gl.uniformMatrix4fv(this._modelInverseTransposeLocation, false, transposed);  // offset it to the right half the screen
 
         
         gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
@@ -395,9 +504,16 @@ class Cube {
         gl.vertexAttribPointer(this.uvLocation, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(this.uvLocation);
 
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.normalBuffer);
+        gl.vertexAttribPointer(this.normalLocation, 3, gl.FLOAT, true, 0, 0);
+        gl.enableVertexAttribArray(this.normalLocation);
+
+        
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
         
         let count = this._indices.length
+        
         gl.drawElements(gl.TRIANGLES ,  count, gl.UNSIGNED_SHORT, 0)
 
 

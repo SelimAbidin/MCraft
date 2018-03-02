@@ -10,6 +10,18 @@ class Scene {
         this.x = 0
         this._camera = new Camera()
         this._cube = new Cube(this._gl)
+
+
+        this._canvas.addEventListener('mousemove',  (evt) => {
+            
+            let hw = (this._canvas.width / 2);
+            let hh = (this._canvas.width / 2);
+
+            this._cube.lpx = (evt.clientX - hw) / hw;
+            
+            
+            this._cube.lpy = (hh - evt.clientY) / hh
+        });
     }
 
     render () {
