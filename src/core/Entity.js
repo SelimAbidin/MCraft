@@ -1,25 +1,32 @@
 
 
-class Entity {
+export default class Entity {
     
     constructor () {
-
+        this._components = []
     }
 
-    setTransform () {
+    addComponent (component) {
+        this._components.push(component)
+    }
+
+    removeComponent (component) {
+     
+        let components = this._components
+        let index = components.indexOf(component)
         
+        if(index < 0) return undefined 
+        return components.splice(index, 1)
     }
-
-    setView (view) {
-        this._view = view
-    }
-
+    
     update () {
 
-    }
+        let components = this._components
+        components.forEach( (item) => {
 
-    render () {
-        
+            console.log(item);
+            
+        })
     }
 
 }

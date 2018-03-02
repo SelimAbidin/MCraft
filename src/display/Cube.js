@@ -39,11 +39,13 @@ class Cube {
         this._context = gl
         this.model = mat4.create()
         this._quaternian = quat.create()
-        const s = 1
+        
 
         this._vertices = []
         this._uvs = []
         this._normals = []
+
+        const s = 1
 
         let p1 = vec3.fromValues(-s, s, s)
         let p2 = vec3.fromValues(s, s, s)
@@ -326,8 +328,8 @@ class Cube {
         gl.attachShader(shaderProgram, vertexShader); 
         gl.attachShader(shaderProgram, fragmentShader); 
         gl.linkProgram(shaderProgram);
-
-        // this.posLocation = gl.getAttribLocation(shaderProgram,'a_position')
+        
+        this.posLocation = gl.getAttribLocation(shaderProgram,'a_position')
         this.posLocation = 0
         this.normalLocation = 1
         this.uvLocation = 2
