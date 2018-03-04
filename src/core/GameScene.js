@@ -24,12 +24,22 @@ class GameScene {
             children.push(child)    
         }
     }
+
+    addToRender(element) {
+
+        Renderer.render(element)
+        element._children.forEach(element => {
+            this.addToRender(element)
+        });
+        
+    }
     
     render () {
         
         this._children.forEach(element => {
             element.update()
-            Renderer.render(element)
+            
+            this.addToRender(element)
         });
 
         Renderer.end(this._gl, this._camera.perspective)

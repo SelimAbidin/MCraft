@@ -10,6 +10,7 @@ export default class Transform {
         this.position = vec3.create();
         this.rotation = quat.create();
         this.scale = vec3.fromValues(1,1,1);
+        this.parent = null
     }
 
     setEuler (x,y,z) {
@@ -22,10 +23,20 @@ export default class Transform {
         this.needsToBeUpdate = true
     }
 
+    setScale(scale) {
+        vec3.set(this.scale, scale, scale, scale)
+    }
+
     update () {
 
+        this.needsToBeUpdate = true
         if(this.needsToBeUpdate) {
             mat4.fromRotationTranslationScale(this.worldMatrix, this.rotation, this.position, this.scale)
+
+            if(this.parent) {
+                mat4.mul(this.worldMatrix, this.parent.worldMatrix, this.worldMatrix)
+            }
+
             mat4.invert(this.worldInverseTranspose, this.worldMatrix)
             mat4.transpose(this.worldInverseTranspose, this.worldInverseTranspose)
             this.needsToBeUpdate = false

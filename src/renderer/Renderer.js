@@ -7,8 +7,7 @@ class Renderer {
     }
 
     render (mesh) {
-
-        
+                
         mesh.update()
         this._renderObjects.push(mesh)
     }

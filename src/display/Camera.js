@@ -14,7 +14,7 @@ class Camera {
         let m = mat4.perspective(proj, fovy, height / width, 0.1, 1000)
 
         let v = vec3.create()
-        vec3.set(v,0,0,-10)
+        vec3.set(v,0,0, -100)
         let model = mat4.create()
         mat4.fromTranslation(model, v)
 

@@ -24,14 +24,11 @@ export default class Entity {
         return components.splice(index, 1)
     }
     
-    update () {
-
-        let components = this._components
-        components.forEach( (item) => {
-
-            console.log(item);
-            
-        })
-    }
+    // update () {
+    //     let components = this._components
+    //     components.forEach( (item) => {
+    //         console.log(item);
+    //     })
+    // }
 
 }

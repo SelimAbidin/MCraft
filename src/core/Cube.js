@@ -206,20 +206,20 @@ class Cube extends GameObject {
 
         backMatrix = mat4.fromXRotation(backMatrix, 90 * Math.PI / 180)
 
-        vec3.transformMat4(tempP, p1, backMatrix )
+        temp1 = vec3.clone(vec3.transformMat4(tempP, p1, backMatrix ))
         vertices.push(tempP[0], tempP[1], tempP[2])
 
-        vec3.transformMat4(tempP, p2, backMatrix )
+        temp2 = vec3.clone(vec3.transformMat4(tempP, p2, backMatrix ))
         vertices.push(tempP[0], tempP[1], tempP[2])
 
-        vec3.transformMat4(tempP, p3, backMatrix )
+        temp3 = vec3.clone(vec3.transformMat4(tempP, p3, backMatrix ))
         vertices.push(tempP[0], tempP[1], tempP[2])
 
         vec3.transformMat4(tempP, p4, backMatrix )
         vertices.push(tempP[0], tempP[1], tempP[2])
 
         u = (1 / 3) * 2
-         us = (1 / 3)
+        us = (1 / 3)
         uvs.push(us,0, u,0, u,1, us,1)
 
 
@@ -228,7 +228,7 @@ class Cube extends GameObject {
         yNormal = normal[1]
         zNormal = normal[2]
 
-        
+
         normals.push(xNormal, yNormal, zNormal)
         normals.push(xNormal, yNormal, zNormal)
         normals.push(xNormal, yNormal, zNormal)

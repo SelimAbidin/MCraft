@@ -15,7 +15,17 @@ contentDiv.appendChild(canvas)
 
 let gameScene = new GameScene(canvas)
 let cube = new Cube()
+
+let insideCube = new Cube()
+insideCube.transform.setXYZ(10,0,0)
+
+let insideCube2 = new Cube()
+insideCube2.transform.setXYZ(0,10,0)
+
+
 gameScene.addChild(cube)
+cube.addChild(insideCube)
+cube.addChild(insideCube2)
 
 
 cube.transform.setEuler(45,45,0)
@@ -32,17 +42,18 @@ canvas.addEventListener('mousemove',  (evt) => {
     window.lpx = (evt.clientX - hw) / hw;
     window.lpy = (hh - evt.clientY) / hh
 
-
 });
 
 
-// setInterval(() => {
+setInterval(() => {
 
-//     testX +=0.01;
-//     //cube.transform.setXYZ(10 * Math.sin(testX),0,0)
-//     cube.transform.setEuler(90 * Math.sin(testX),0,0)
+    testX +=0.001;
+    //cube.transform.setXYZ(10 * Math.sin(testX),0,0)
+    // cube.transform.setScale(10 * Math.sin(testX),0,0)
+    cube.transform.setEuler(180 * Math.sin(testX),180 * Math.cos(testX),0)
+    // cube.transform.setEuler(0,180 * Math.cos(testX),0)
 
-// }, 60 / 1000)
+}, 60 / 1000)
 
 
 /*
