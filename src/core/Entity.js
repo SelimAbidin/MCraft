@@ -1,25 +1,34 @@
+import createID from '../utils/UniqueID'
 
-
-class Entity {
+export default class Entity {
     
     constructor () {
 
+        this._components = []
+        const _id = createID() 
+        Object.defineProperty(this, 'id', {
+            get () { return _id }
+        } )
     }
 
-    setTransform () {
+    addComponent (component) {
+        this._components.push(component)
+    }
+
+    removeComponent (component) {
+     
+        let components = this._components
+        let index = components.indexOf(component)
         
+        if(index < 0) return undefined 
+        return components.splice(index, 1)
     }
-
-    setView (view) {
-        this._view = view
-    }
-
-    update () {
-
-    }
-
-    render () {
-        
-    }
+    
+    // update () {
+    //     let components = this._components
+    //     components.forEach( (item) => {
+    //         console.log(item);
+    //     })
+    // }
 
 }
