@@ -56,9 +56,11 @@ export default class Mesh {
 
         if(this._material.needsToBeCompiled) {
             this._material.compile(gl)
-            this.bindBuffers(gl)
         }
 
+        if(!this.loaded) {
+            this.bindBuffers(gl)
+        }
     }
 
     update () {

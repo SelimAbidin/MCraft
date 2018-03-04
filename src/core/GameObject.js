@@ -26,7 +26,6 @@ export default class GameObject extends Entity {
     update () {
 
         this.transform.update()
-        
         this.transform.name = this.name
         this._children.forEach(child => {
             child.update()

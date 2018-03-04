@@ -20,14 +20,23 @@ const normalCalculation = (p1,p2,p3) => {
 
 class Cube extends GameObject {
 
-    constructor () {
+    constructor (size) {
         super()
 
-        const data = this.createGeomtry()
-        let mesh = new Mesh(new DefaultMaterial(), data.vertices, data.normals, data.uvs, data.indices)
-        this.mesh = mesh
-
+        if(Cube._defaultMaterial === undefined) {
+            Cube._defaultMaterial = new DefaultMaterial()
+        }
         
+        this.cubeSize = 1
+
+        let data = Cube._cachedData
+        if(data === undefined) {
+            Cube._cachedData = data = this.createGeomtry(this.cubeSize)
+        }
+        
+        
+        let mesh = new Mesh(Cube._defaultMaterial, data.vertices, data.normals, data.uvs, data.indices)
+        this.mesh = mesh
     }
 
     onRender (gl) {
@@ -39,10 +48,12 @@ class Cube extends GameObject {
     //#region CreateGeometry
     createGeomtry () {
 
+        console.log('create');
+        
         let vertices = []
         let normals = []
         let uvs = []
-        const s = 1
+        const s = 5
         
         let p1 = vec3.fromValues(-s, s, s)
         let p2 = vec3.fromValues(s, s, s)

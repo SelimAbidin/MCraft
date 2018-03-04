@@ -21,6 +21,8 @@ const isPOT = (size) => {
 export default class DefaultMaterial {
 
     constructor () {
+        console.log('default');
+        
         this.needsToBeCompiled = true
         this._shader = new DefaultShader()
     }
@@ -71,6 +73,7 @@ export default class DefaultMaterial {
 
         
         var projLocation = gl.getUniformLocation(shaderProgram, "proj");
+        var viewLocation = gl.getUniformLocation(shaderProgram, "view");
         var modelLocation = gl.getUniformLocation(shaderProgram, "model");
         this._modelInverseTransposeLocation = gl.getUniformLocation(shaderProgram, "tmodel");
         var lightPLocation = gl.getUniformLocation(shaderProgram, "lPos");
@@ -95,9 +98,8 @@ export default class DefaultMaterial {
 
             if(isPOT(image.width) && isPOT(image.height)) {
                 gl.generateMipmap(gl.TEXTURE_2D);
-                
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_NEAREST);
             } else {
 
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -109,12 +111,13 @@ export default class DefaultMaterial {
 
         image.src = './textures/cube_pot.png'
 
-
-
         this._projLocation = projLocation
+        this._viewLocation = viewLocation
         this._modelLocation = modelLocation
         this._lightPLocation = lightPLocation
         this._program = shaderProgram
+
+        this.needsToBeCompiled = false
 
     }
 

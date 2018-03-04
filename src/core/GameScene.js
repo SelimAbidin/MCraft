@@ -10,9 +10,11 @@ class GameScene {
         })
 
         this._camera = new Camera()
-
+        this.camera = this._camera
         this.render = this.render.bind(this)
         this._children = []
+        this.addChild(this._camera)
+     this._frameRate = 60
         this.render() 
     }
 
@@ -38,12 +40,13 @@ class GameScene {
         
         this._children.forEach(element => {
             element.update()
-            
             this.addToRender(element)
         });
 
-        Renderer.end(this._gl, this._camera.perspective)
-        requestAnimationFrame(this.render)
+        
+        Renderer.end(this._gl, this._camera)
+        // requestAnimationFrame(this.render)
+        setTimeout(this.render, 1000 / this._frameRate)
     }
 }
 

@@ -25,13 +25,22 @@ export default class Transform {
 
     setScale(scale) {
         vec3.set(this.scale, scale, scale, scale)
+        this.needsToBeUpdate = true
     }
 
     update () {
 
         this.needsToBeUpdate = true
         if(this.needsToBeUpdate) {
-            mat4.fromRotationTranslationScale(this.worldMatrix, this.rotation, this.position, this.scale)
+
+            // mat4.identity(this.worldMatrix)
+            // mat4.fromRotationTranslationScale(this.worldMatrix, this.rotation, this.position, this.scale)
+            //  mat4.fromRotationTranslation(this.worldMatrix, this.rotation, this.position)
+
+            mat4.fromQuat(this.worldMatrix, this.rotation)
+            mat4.translate(this.worldMatrix, this.worldMatrix, this.position)
+            mat4.scale(this.worldMatrix, this.worldMatrix, this.scale)
+            
 
             if(this.parent) {
                 mat4.mul(this.worldMatrix, this.parent.worldMatrix, this.worldMatrix)

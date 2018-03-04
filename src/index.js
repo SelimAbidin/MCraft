@@ -1,8 +1,27 @@
 'use strict'
 
-// import Scene from './display/Scene.js'
 import GameScene from './core/GameScene.js'
+import Terrain from './display/Terrain'
 import Cube from './core/Cube'
+
+
+
+
+
+
+
+
+
+
+
+setTimeout( function () {
+    
+    
+let testX = 0
+window.lpx = 1
+window.lpy = 1
+
+
 
 let contentDiv = document.getElementById('root')
 let canvas = document.createElement('canvas')
@@ -14,46 +33,40 @@ canvas.height = 500 / 1
 contentDiv.appendChild(canvas)
 
 let gameScene = new GameScene(canvas)
-let cube = new Cube()
 
-let insideCube = new Cube()
-insideCube.transform.setXYZ(10,0,0)
-
-let insideCube2 = new Cube()
-insideCube2.transform.setXYZ(0,10,0)
+new Terrain(gameScene)
 
 
-gameScene.addChild(cube)
-cube.addChild(insideCube)
-cube.addChild(insideCube2)
+setInterval( () => {
+    testX += 0.01
+    let z = Math.sin(testX) * 100
+    gameScene.camera.transform.setXYZ(0, 0, z)
+    gameScene.camera.transform.setEuler(10,0,0)
+    gameScene.camera.transform.name = "camera"
+
+}, 1000 / 30)
 
 
-cube.transform.setEuler(45,45,0)
-let testX = 0
 
-window.lpx = 0
-window.lpy = 0
-
-canvas.addEventListener('mousemove',  (evt) => {
-            
-    let hw = (canvas.width / 2);
-    let hh = (canvas.width / 2);
-
-    window.lpx = (evt.clientX - hw) / hw;
-    window.lpy = (hh - evt.clientY) / hh
-
-});
+}, 100)
 
 
-setInterval(() => {
 
-    testX +=0.001;
-    //cube.transform.setXYZ(10 * Math.sin(testX),0,0)
-    // cube.transform.setScale(10 * Math.sin(testX),0,0)
-    cube.transform.setEuler(180 * Math.sin(testX),180 * Math.cos(testX),0)
-    // cube.transform.setEuler(0,180 * Math.cos(testX),0)
+// canvas.addEventListener('mousemove',  (evt) => {
+//     let hw = (canvas.width / 2);
+//     let hh = (canvas.width / 2);
+//     window.lpx = (evt.clientX - hw) / hw;
+//     window.lpy = (hh - evt.clientY) / hh
+//     console.log(lpy);
+//     window.lpx = 1
+//     window.lpy = 1
+// });
 
-}, 60 / 1000)
+
+// setInterval(() => {
+//     testX +=0.001;
+//     cube.transform.setEuler(180 * Math.sin(testX),180 * Math.cos(testX),0)
+// }, 60 / 1000)
 
 
 /*

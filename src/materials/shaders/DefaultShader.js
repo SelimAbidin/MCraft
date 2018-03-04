@@ -8,16 +8,16 @@ export default class Default {
         attribute vec2 a_uv;
         uniform mat4 proj;
         uniform mat4 model;
+        uniform mat4 view;
         uniform mat4 tmodel;
         varying highp vec2 vTextureCoord;
         varying vec3 v_normal;
         void main() {
         
-            mat4 modelProjection = proj * model;
+            mat4 mvp = proj * view * model;
             vTextureCoord = a_uv;
-            vec4 position = modelProjection * vec4(a_position.x, a_position.y, a_position.z, 1.0);
+            vec4 position = mvp * vec4(a_position.x, a_position.y, a_position.z, 1.0);
             gl_Position = position;
-        
             v_normal = mat3(tmodel) * a_normal; 
         }`
     }

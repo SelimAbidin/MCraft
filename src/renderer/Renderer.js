@@ -6,20 +6,25 @@ class Renderer {
         this._renderObjects = []
     }
 
-    render (mesh) {
-                
-        mesh.update()
-        this._renderObjects.push(mesh)
+    render (gameObject) {
+
+        gameObject.update()
+        if(gameObject.mesh) {
+            this._renderObjects.push(gameObject)
+        }
     }
 
-    renderMesh (gl, gameObject, perspective) {
+    renderMesh (gl, gameObject, camera) {
 
         let mesh = gameObject.mesh
         let transform = gameObject.transform
         let material = mesh._material
         
+        
         gl.useProgram(material._program);
-        gl.uniformMatrix4fv(material._projLocation, false, perspective);  // offset it to the right half the screen
+        gl.uniformMatrix4fv(material._projLocation, false, camera.perspective);  // offset it to the right half the screen
+        gl.uniformMatrix4fv(material._viewLocation, false, camera.transform.worldMatrix);  // offset it to the right half the screen
+        
         
 
         if(this.lPosX === undefined) {
@@ -66,12 +71,13 @@ class Renderer {
 
     }
 
-    end(gl,perspective) {
+    end(gl,camera) {
         
 
         gl.clearColor(7 / 255, 120 / 255, 200 / 255, 1);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT )
 
+        
         
         gl.enable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);
@@ -110,7 +116,7 @@ class Renderer {
             }
             
 
-            this.renderMesh(gl,gameObject, perspective)
+            this.renderMesh(gl,gameObject, camera)
 
         });
 
