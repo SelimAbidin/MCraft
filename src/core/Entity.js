@@ -1,9 +1,14 @@
-
+import createID from '../utils/UniqueID'
 
 export default class Entity {
     
     constructor () {
+
         this._components = []
+        const _id = createID() 
+        Object.defineProperty(this, 'id', {
+            get () { return _id }
+        } )
     }
 
     addComponent (component) {

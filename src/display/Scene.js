@@ -1,5 +1,9 @@
 import Camera from './Camera'
 import Cube from './Cube'
+
+/**
+ * @deprecated
+ */
 class Scene {
 
     constructor (canvas) {

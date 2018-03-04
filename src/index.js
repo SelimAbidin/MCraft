@@ -14,7 +14,36 @@ canvas.height = 500 / 1
 contentDiv.appendChild(canvas)
 
 let gameScene = new GameScene(canvas)
-gameScene.addChild(new Cube())
+let cube = new Cube()
+gameScene.addChild(cube)
+
+
+cube.transform.setEuler(45,45,0)
+let testX = 0
+
+window.lpx = 0
+window.lpy = 0
+
+canvas.addEventListener('mousemove',  (evt) => {
+            
+    let hw = (canvas.width / 2);
+    let hh = (canvas.width / 2);
+
+    window.lpx = (evt.clientX - hw) / hw;
+    window.lpy = (hh - evt.clientY) / hh
+
+
+});
+
+
+// setInterval(() => {
+
+//     testX +=0.01;
+//     //cube.transform.setXYZ(10 * Math.sin(testX),0,0)
+//     cube.transform.setEuler(90 * Math.sin(testX),0,0)
+
+// }, 60 / 1000)
+
 
 /*
 let scene = new Scene(canvas)

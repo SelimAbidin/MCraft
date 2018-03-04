@@ -1,5 +1,6 @@
 import Renderer from '../renderer/Renderer'
 import GameObject from './GameObject'
+import Transform from './Transform'
 import Mesh from './Mesh'
 import DefaultMaterial from '../materials/DefaultMaterial'
 import {vec3, mat4, quat} from 'gl-matrix'
@@ -24,8 +25,9 @@ class Cube extends GameObject {
 
         const data = this.createGeomtry()
         let mesh = new Mesh(new DefaultMaterial(), data.vertices, data.normals, data.uvs, data.indices)
-        // this.addComponent(mesh)
         this.mesh = mesh
+
+        
     }
 
     onRender (gl) {
@@ -33,6 +35,7 @@ class Cube extends GameObject {
         this._components.forEach( i => i.onRender(gl))
         this._renderer.render(this)
     }
+
     //#region CreateGeometry
     createGeomtry () {
 

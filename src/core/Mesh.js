@@ -1,5 +1,4 @@
 import {mat4} from 'gl-matrix'
-
 export default class Mesh {
 
     constructor (material, vertices, normals, uvs ,indices) {
@@ -9,6 +8,7 @@ export default class Mesh {
         this._uvs = uvs
         this._indices = indices
         this._material = material
+
 
         this.model = mat4.create()
     }
@@ -59,6 +59,9 @@ export default class Mesh {
             this.bindBuffers(gl)
         }
 
+    }
+
+    update () {
     }
 
 }

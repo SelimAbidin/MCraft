@@ -7,22 +7,22 @@ class Renderer {
     }
 
     render (mesh) {
+
+        
+        mesh.update()
         this._renderObjects.push(mesh)
     }
 
-    renderMesh (gl, mesh, perspective) {
+    renderMesh (gl, gameObject, perspective) {
 
-        gl.enable(gl.DEPTH_TEST);
-        gl.enable(gl.CULL_FACE);
-        gl.cullFace(gl.BACK);
-
+        let mesh = gameObject.mesh
+        let transform = gameObject.transform
         let material = mesh._material
-        
-
         
         gl.useProgram(material._program);
         gl.uniformMatrix4fv(material._projLocation, false, perspective);  // offset it to the right half the screen
         
+
         if(this.lPosX === undefined) {
             this.lPosX = 0; 
         }
@@ -31,49 +31,19 @@ class Renderer {
         let lX = Math.round(100 * Math.sin(this.lPosX))
         let lY = Math.round(100 * Math.cos(this.lPosX))
 
-        // lX = 0;
-        // lY = -40;
-        lX = this.lpx
-        lY = this.lpy
 
-        lX = 2;
-        lY = 0;
+        lX = window.lpx
+        lY = window.lpy
         
         var lpos = vec3.fromValues(lX, lY, 1)
-        // var lpos = vec3.fromValues(0.5, 0.7, 1);
         lpos = vec3.normalize(vec3.create(),lpos)
         
         
         gl.uniform3fv(material._lightPLocation, lpos)
-        // if(this._isTranslateDirty) {
-
-        //     mat4.identity(this.model)
-        //     if(this._translateMatrix === undefined)this._translateMatrix = mat4.create()
-
-        //     mat4.fromTranslation(this._translateMatrix, [this._x, this._y, this._z])
-        //     mat4.copy(this.model, this._translateMatrix)
-        // }
-
-        if(this._rotationY === undefined) this._rotationY = 0
-        this._rotationY+=0.5;
-        this._rotationY = 45
-
-
-        //let rotation = quat.fromEuler(this._quaternian, this._rotationY, this._rotationY, 0)
-        // let rotation = quat.fromEuler(this._quaternian, this._rotationY, 0, 0)
-        // let rotation = quat.fromEuler(this._quaternian, 0, this._rotationY, 0)
-        //mat4.fromQuat(this.model, rotation)
         
-        
-        gl.uniformMatrix4fv(material._modelLocation, false, mesh.model);  // offset it to the right half the screen
+        gl.uniformMatrix4fv(material._modelLocation, false, transform.worldMatrix);  // offset it to the right half the screen
+        gl.uniformMatrix4fv(material._modelInverseTransposeLocation, false, transform.worldInverseTranspose);  // offset it to the right half the screen
 
-        let temp = mat4.create();
-        mat4.invert(temp, mesh.model)
-        
-        let transposed = mat4.transpose(temp, temp)
-        gl.uniformMatrix4fv(material._modelInverseTransposeLocation, false, transposed);  // offset it to the right half the screen
-
-        
         
         gl.bindBuffer(gl.ARRAY_BUFFER, mesh.positionBuffer);
         gl.vertexAttribPointer(material.posLocation, 3, gl.FLOAT, false, 0, 0);
@@ -98,6 +68,16 @@ class Renderer {
     }
 
     end(gl,perspective) {
+        
+
+        gl.clearColor(7 / 255, 120 / 255, 200 / 255, 1);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT )
+
+        
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+        gl.cullFace(gl.BACK);
+
         
         this._renderObjects.forEach(gameObject => {
 
@@ -131,7 +111,7 @@ class Renderer {
             }
             
 
-            this.renderMesh(gl,mesh, perspective)
+            this.renderMesh(gl,gameObject, perspective)
 
         });
 
