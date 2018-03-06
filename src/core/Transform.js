@@ -28,14 +28,9 @@ export default class Transform {
         this.needsToBeUpdate = true
     }
 
-    update () {
+    update (force) {
 
-        this.needsToBeUpdate = true
-        if(this.needsToBeUpdate) {
-
-            // mat4.identity(this.worldMatrix)
-            // mat4.fromRotationTranslationScale(this.worldMatrix, this.rotation, this.position, this.scale)
-            //  mat4.fromRotationTranslation(this.worldMatrix, this.rotation, this.position)
+        if(force || this.needsToBeUpdate) {
 
             mat4.fromQuat(this.worldMatrix, this.rotation)
             mat4.translate(this.worldMatrix, this.worldMatrix, this.position)

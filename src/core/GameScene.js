@@ -38,15 +38,16 @@ class GameScene {
     
     render () {
         
+
+        Renderer.reset()
         this._children.forEach(element => {
             element.update()
             this.addToRender(element)
         });
-
         
         Renderer.end(this._gl, this._camera)
-        // requestAnimationFrame(this.render)
-        setTimeout(this.render, 1000 / this._frameRate)
+        requestAnimationFrame(this.render)
+        // setTimeout(this.render, 1000 / this._frameRate)
     }
 }
 

@@ -34,9 +34,7 @@ class Cube extends GameObject {
             Cube._cachedData = data = this.createGeomtry(this.cubeSize)
         }
         
-        
-        let mesh = new Mesh(Cube._defaultMaterial, data.vertices, data.normals, data.uvs, data.indices)
-        this.mesh = mesh
+        this.mesh = new Mesh(Cube._defaultMaterial, data.vertices.concat(), data.normals.concat(), data.uvs.concat(), data.indices.concat())
     }
 
     onRender (gl) {
@@ -45,10 +43,9 @@ class Cube extends GameObject {
         this._renderer.render(this)
     }
 
+
     //#region CreateGeometry
     createGeomtry () {
-
-        console.log('create');
         
         let vertices = []
         let normals = []
@@ -71,7 +68,6 @@ class Cube extends GameObject {
         uvs.push(0,0, u,0, u,1, 0,1)
         
         let normal = normalCalculation(p3,p2,p1)
-
         
         let xNormal = normal[0]
         let yNormal = normal[1]
@@ -117,8 +113,7 @@ class Cube extends GameObject {
         normals.push(xNormal, yNormal, zNormal)
         normals.push(xNormal, yNormal, zNormal)
 
-
-       // RIGHT END
+        // RIGHT END
         
         // BACK
         backMatrix = mat4.fromYRotation(backMatrix, 180 * Math.PI / 180)
@@ -142,7 +137,6 @@ class Cube extends GameObject {
         yNormal = normal[1]
         zNormal = normal[2]
 
-        
         normals.push(xNormal, yNormal, zNormal)
         normals.push(xNormal, yNormal, zNormal)
         normals.push(xNormal, yNormal, zNormal)
@@ -180,7 +174,6 @@ class Cube extends GameObject {
         normals.push(xNormal, yNormal, zNormal)
         // LEFT END
 
-       
         
 
         // TOP
@@ -266,7 +259,7 @@ class Cube extends GameObject {
             20,23,22,
         ]
         
-
+        
         return {
             vertices,
             normals,
