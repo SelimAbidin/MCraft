@@ -74,8 +74,8 @@ class Renderer {
             this._bufferData = {}
 
 
-            let size = 10000
-            let pixelPositions = new Float32Array(10000 * 3)
+            let size = 50000
+            let pixelPositions = new Float32Array(size * 3)
             let positionBuffer = gl.createBuffer();
 
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -84,7 +84,7 @@ class Renderer {
             gl.enableVertexAttribArray(material.posLocation);
 
 
-            let normalArray = new Float32Array(10000 * 3)
+            let normalArray = new Float32Array(size * 3)
             let normalBuffer = gl.createBuffer();
 
             gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
@@ -93,7 +93,7 @@ class Renderer {
             gl.enableVertexAttribArray(material.normalLocation);
             
 
-            let uvArray = new Float32Array(10000 * 2)
+            let uvArray = new Float32Array(size * 2)
             let uvBuffer = gl.createBuffer();
 
             gl.bindBuffer(gl.ARRAY_BUFFER, uvBuffer);
@@ -102,7 +102,7 @@ class Renderer {
             gl.enableVertexAttribArray(material.uvLocation);
 
 
-            let indicesArray = new Int16Array(10000 * 3)
+            let indicesArray = new Int16Array(size * 10)
             let indicesBuffer = gl.createBuffer();
 
             let bufferObject = {}
@@ -144,13 +144,18 @@ class Renderer {
 
             let offsetPosition = 0
             let offsetUV = 0
+            let indicesOffset = 0
             let lastGameObject
             let size = gameObjects.length
-            size = 1
+
             for (let i = 0; i < size; i++) {
                 const gameObject = gameObjects[i];
                 const mesh = gameObject.mesh
-                lastGameObject = gameObject
+                
+                if(lastGameObject === undefined) {
+                    lastGameObject = gameObject
+                }
+                
                 for (let j = 0; j < mesh.vertices.length; j++) {
                     bufferData.positionArray[offsetPosition + j] = mesh.vertices[j]
                 }
@@ -164,12 +169,14 @@ class Renderer {
                 }
 
                 for (let j = 0; j < mesh.indices.length; j++) {
-                    bufferData.indicesArray[offsetUV + j] = mesh.indices[j]
+                    bufferData.indicesArray[indicesOffset + j] = mesh.indices[j] + (i * 24)
                 }
 
+                indicesOffset += mesh.indices.length
                 offsetPosition += mesh.vertices.length
                 offsetUV += mesh.uvs.length
             }
+            
             
             let lX = window.lpx
             let lY = window.lpy
@@ -181,6 +188,7 @@ class Renderer {
             gl.uniformMatrix4fv(material._projLocation, false, camera.perspective);  // offset it to the right half the screen
             gl.uniformMatrix4fv(material._viewLocation, false, camera.transform.worldMatrix);  // offset it to the right half the screen
             gl.uniform3fv(material._lightPLocation, lpos)
+
             gl.uniformMatrix4fv(material._modelLocation, false, lastGameObject.transform.worldMatrix);  // offset it to the right half the screen
             gl.uniformMatrix4fv(material._modelInverseTransposeLocation, false, lastGameObject.transform.worldInverseTranspose);  // offset it to the right half the screen
             
@@ -204,7 +212,9 @@ class Renderer {
             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, bufferData.indicesArray , gl.STREAM_DRAW);
 
             let count = bufferData.indicesArray.length
-            
+            // console.log(bufferData);
+            // debugger
+            count = size * (36 * 5)
             gl.drawElements(gl.TRIANGLES , count, gl.UNSIGNED_SHORT, 0)
             
         }

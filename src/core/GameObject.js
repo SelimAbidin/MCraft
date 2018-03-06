@@ -7,6 +7,8 @@ export default class GameObject extends Entity {
         super();
         this._children = []
         this.transform = new Transform()
+        this.isStatic = false
+        this.mesh = null
     }
 
     addChild(child) {
@@ -27,6 +29,14 @@ export default class GameObject extends Entity {
 
         let willBeUpdated = this.transform.needsToBeUpdate
         this.transform.update()
+
+        if(willBeUpdated) {
+            
+            if(this.isStatic) {
+                this.mesh.transformVertices(this.transform.worldMatrix)
+            }
+        }
+
         this.transform.name = this.name
         this._children.forEach(child => {
             child.transform.willBeUpdated = willBeUpdated

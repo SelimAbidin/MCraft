@@ -33,29 +33,26 @@ canvas.height = 500 / 1
 contentDiv.appendChild(canvas)
 
 let gameScene = new GameScene(canvas)
-var cube = new Cube()
-gameScene.addChild(cube)
-
-
-
-gameScene.camera.transform.setXYZ(0, 0, -100)
+// var cube = new Cube()
+// gameScene.addChild(cube)
+// gameScene.camera.transform.setXYZ(0, 0, -100)
 
 // setInterval(() => {
 //     testX +=0.001;
 //     cube.transform.setXYZ(0,0,180 * Math.sin(testX))
 // }, 60 / 1000)
 
-// new Terrain(gameScene)
+new Terrain(gameScene)
 
 
-// setInterval( () => {
-//     testX += 0.01
-//     let z = Math.sin(testX) * 100
-//     gameScene.camera.transform.setXYZ(0, 0, z)
-//     gameScene.camera.transform.setEuler(10,0,0)
-//     gameScene.camera.transform.name = "camera"
+setInterval( () => {
+    testX += 0.01
+    let z = Math.sin(testX) * 100
+    gameScene.camera.transform.setXYZ(0, 0, z)
+    gameScene.camera.transform.setEuler(10,0,0)
+    gameScene.camera.transform.name = "camera"
 
-// }, 1000 / 30)
+}, 1000 / 30)
 
 
 

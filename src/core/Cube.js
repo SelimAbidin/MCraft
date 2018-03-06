@@ -34,8 +34,7 @@ class Cube extends GameObject {
             Cube._cachedData = data = this.createGeomtry(this.cubeSize)
         }
         
-        let mesh = new Mesh(Cube._defaultMaterial, data.vertices, data.normals, data.uvs, data.indices)
-        this.mesh = mesh
+        this.mesh = new Mesh(Cube._defaultMaterial, data.vertices.concat(), data.normals.concat(), data.uvs.concat(), data.indices.concat())
     }
 
     onRender (gl) {
@@ -260,7 +259,7 @@ class Cube extends GameObject {
             20,23,22,
         ]
         
-
+        
         return {
             vertices,
             normals,
