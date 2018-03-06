@@ -11,12 +11,10 @@ export default class Terrain {
     createCubes () {
 
         let countX = 10
-        let countY = 20
-        console.log('total : ',  countX * countY);
+        let countY = 10
         
         let cubeSize = 11
         let xSize = countX * cubeSize
-        console.log(xSize);
         
         for (let i = 0; i < countX; i++) {
             

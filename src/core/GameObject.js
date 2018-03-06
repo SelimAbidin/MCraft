@@ -25,9 +25,11 @@ export default class GameObject extends Entity {
 
     update () {
 
+        let willBeUpdated = this.transform.needsToBeUpdate
         this.transform.update()
         this.transform.name = this.name
         this._children.forEach(child => {
+            child.transform.willBeUpdated = willBeUpdated
             child.update()
         });
     }

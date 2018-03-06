@@ -1,6 +1,6 @@
 
 import DefaultShader from './shaders/DefaultShader'
-
+import Material from './Material'
 
 const isPOT = (size) => {
 
@@ -18,11 +18,10 @@ const isPOT = (size) => {
 }
 
 
-export default class DefaultMaterial {
+export default class DefaultMaterial extends Material {
 
     constructor () {
-        console.log('default');
-        
+        super()
         this.needsToBeCompiled = true
         this._shader = new DefaultShader()
     }
@@ -77,7 +76,6 @@ export default class DefaultMaterial {
         var modelLocation = gl.getUniformLocation(shaderProgram, "model");
         this._modelInverseTransposeLocation = gl.getUniformLocation(shaderProgram, "tmodel");
         var lightPLocation = gl.getUniformLocation(shaderProgram, "lPos");
-
         
         
         

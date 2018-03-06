@@ -4,10 +4,15 @@ export default class Mesh {
     constructor (material, vertices, normals, uvs ,indices) {
 
         this._vertices = vertices
+        this.vertices = vertices
         this._normals = normals
+        this.normals = normals
         this._uvs = uvs
+        this.uvs = uvs
         this._indices = indices
+        this.indices = indices
         this._material = material
+        this.material = material
 
 
         this.model = mat4.create()
