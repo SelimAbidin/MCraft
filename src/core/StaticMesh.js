@@ -1,6 +1,6 @@
 import {vec3} from 'gl-matrix'
 
-export default class Mesh {
+export default class StaticMesh {
 
     constructor (material, vertices, normals, uvs ,indices) {
 
@@ -9,6 +9,7 @@ export default class Mesh {
         this.uvs = uvs
         this.indices = indices
         this.material = material
+        this.isStatic = true
     }
 
     transformVertices (matrix) {
@@ -18,12 +19,10 @@ export default class Mesh {
             
             vec3.set(temp, this.vertices[i], this.vertices[i + 1], this.vertices[i + 2])
             vec3.transformMat4(temp, temp, matrix)
-            
             this.vertices[i] = temp[0]
             this.vertices[i+1] = temp[1]
             this.vertices[i+2] = temp[2]
-
         }
-
     }
+
 }

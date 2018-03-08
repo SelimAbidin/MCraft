@@ -44,8 +44,8 @@ export default class GameObject extends Entity {
         });
     }
 
-    render () {
-        super.render()
+    render (gl, camera) {
+        this.mesh.render(gl, camera, this.transform)
     }
 }
 

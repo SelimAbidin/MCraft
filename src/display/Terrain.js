@@ -10,8 +10,8 @@ export default class Terrain {
 
     createCubes () {
 
-        let countX = 20
-        let countY = 30
+        let countX = 5
+        let countY = 5
         
         let cubeSize = 11
         let xSize = countX * cubeSize
@@ -20,9 +20,10 @@ export default class Terrain {
             
             for (let j = 0; j < countY; j++) {
                 
-                let cube = new Cube()
-                cube.isStatic = true
-                cube.transform.setXYZ( (i * cubeSize) - (xSize * 0.25) , -20, -j * cubeSize)
+                let isStatic = (i % 2) === 1
+                let cube = new Cube(isStatic)
+                
+                cube.transform.setXYZ( (i * cubeSize) - (xSize * 0.25) , -0, -j * cubeSize)
                 // cube.transform.setXYZ( (i * cubeSize)  , -3, -j * cubeSize)
                 this._scene.addChild(cube)
             }

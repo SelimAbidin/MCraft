@@ -5,23 +5,11 @@ import Terrain from './display/Terrain'
 import Cube from './core/Cube'
 
 
-
-
-
-
-
-
-
-
-
 setTimeout( function () {
-    
     
 let testX = 0
 window.lpx = 1
 window.lpy = 1
-
-
 
 let contentDiv = document.getElementById('root')
 let canvas = document.createElement('canvas')
@@ -44,12 +32,14 @@ let gameScene = new GameScene(canvas)
 
 new Terrain(gameScene)
 
-
 setInterval( () => {
+
     testX += 0.01
     let z = Math.sin(testX) * 100
-    gameScene.camera.transform.setXYZ(0, 0, z)
-    gameScene.camera.transform.setEuler(10,0,0)
+    z = -80
+
+    gameScene.camera.transform.setXYZ(0, -10, z)
+    gameScene.camera.transform.setEuler(0,0,0)
     gameScene.camera.transform.name = "camera"
 
 }, 1000 / 30)

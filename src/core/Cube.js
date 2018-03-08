@@ -1,7 +1,8 @@
 import Renderer from '../renderer/Renderer'
 import GameObject from './GameObject'
 import Transform from './Transform'
-import Mesh from './Mesh'
+import StaticMesh from './StaticMesh'
+import DynamicMesh from './DynamicMesh'
 import DefaultMaterial from '../materials/DefaultMaterial'
 import {vec3, mat4, quat} from 'gl-matrix'
 
@@ -20,21 +21,26 @@ const normalCalculation = (p1,p2,p3) => {
 
 class Cube extends GameObject {
 
-    constructor (size) {
+    constructor (isStatic) {
         super()
 
         if(Cube._defaultMaterial === undefined) {
             Cube._defaultMaterial = new DefaultMaterial()
         }
         
-        this.cubeSize = 1
-
         let data = Cube._cachedData
         if(data === undefined) {
-            Cube._cachedData = data = this.createGeomtry(this.cubeSize)
+            Cube._cachedData = data = this.createGeomtry()
         }
         
-        this.mesh = new Mesh(Cube._defaultMaterial, data.vertices.concat(), data.normals.concat(), data.uvs.concat(), data.indices.concat())
+        if(isStatic) {
+            this.isStatic = true
+            this.mesh = new StaticMesh(Cube._defaultMaterial, data.vertices.concat(), data.normals.concat(), data.uvs.concat(), data.indices.concat())
+        } else {
+            this.isStatic = false
+            this.mesh = new DynamicMesh(Cube._defaultMaterial, data.vertices.concat(), data.normals.concat(), data.uvs.concat(), data.indices.concat())
+        }
+        
     }
 
     onRender (gl) {
