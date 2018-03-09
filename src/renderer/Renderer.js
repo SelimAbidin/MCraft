@@ -5,6 +5,7 @@ class Renderer {
 
     constructor() {
         this._renderObjects = []
+        this._identity = mat4.create()
     }
 
     reset () {
@@ -31,34 +32,6 @@ class Renderer {
         }
 
         gameObject.render(gl, camera)
-
-        // let lX = window.lpx
-        // let lY = window.lpy
-        // var lpos = vec3.fromValues(lX, lY, 1)
-        // lpos = vec3.normalize(vec3.create(),lpos)
-       
-        // gl.useProgram(material._program);
-        // gl.uniformMatrix4fv(material._projLocation, false, camera.perspective);  // offset it to the right half the screen
-        // gl.uniformMatrix4fv(material._viewLocation, false, camera.transform.worldMatrix);  // offset it to the right half the screen
-        // gl.uniform3fv(material._lightPLocation, lpos)
-
-        // gl.uniformMatrix4fv(material._modelLocation, false, transform.worldMatrix);  // offset it to the right half the screen
-        // gl.uniformMatrix4fv(material._modelInverseTransposeLocation, false, transform.worldInverseTranspose);  // offset it to the right half the screen
-
-        // gl.bindBuffer(gl.ARRAY_BUFFER, mesh.positionBuffer);
-        // gl.vertexAttribPointer(material.posLocation, 3, gl.FLOAT, false, 0, 0);
-        // gl.enableVertexAttribArray(material.posLocation);
-
-        // gl.bindBuffer(gl.ARRAY_BUFFER, mesh.uvBuffer);
-        // gl.vertexAttribPointer(material.uvLocation, 2, gl.FLOAT, false, 0, 0);
-        // gl.enableVertexAttribArray(material.uvLocation);
-
-        // gl.bindBuffer(gl.ARRAY_BUFFER, mesh.normalBuffer);
-        // gl.vertexAttribPointer(material.normalLocation, 3, gl.FLOAT, true, 0, 0);
-        // gl.enableVertexAttribArray(material.normalLocation);
-        // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
-        // let count = mesh.indices.length
-        // gl.drawElements(gl.TRIANGLES ,  count, gl.UNSIGNED_SHORT, 0)
     }
 
     getBufferData (gl, material) {
@@ -175,10 +148,12 @@ class Renderer {
            
             gl.useProgram(material._program);
 
+            
             gl.uniformMatrix4fv(material._projLocation, false, camera.perspective);  // offset it to the right half the screen
             gl.uniformMatrix4fv(material._viewLocation, false, camera.transform.worldMatrix);  // offset it to the right half the screen
             gl.uniform3fv(material._lightPLocation, lpos)
-            gl.uniformMatrix4fv(material._modelLocation, false, lastGameObject.transform.worldMatrix);  // offset it to the right half the screen
+            // gl.uniformMatrix4fv(material._modelLocation, false, lastGameObject.transform.worldMatrix);  // offset it to the right half the screen
+            gl.uniformMatrix4fv(material._modelLocation, false, this._identity);  // offset it to the right half the screen
             gl.uniformMatrix4fv(material._modelInverseTransposeLocation, false, lastGameObject.transform.worldInverseTranspose);  // offset it to the right half the screen
             
             gl.bindBuffer(gl.ARRAY_BUFFER, bufferData.positionBuffer);

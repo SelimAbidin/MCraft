@@ -23,7 +23,7 @@ export default class Terrain {
                 let isStatic = (i % 2) === 1
                 let cube = new Cube(isStatic)
                 
-                cube.transform.setXYZ( (i * cubeSize) - (xSize * 0.25) , -0, -j * cubeSize)
+                cube.transform.setXYZ( (i * cubeSize) - (xSize * 0.25) , -4, -j * cubeSize)
                 // cube.transform.setXYZ( (i * cubeSize)  , -3, -j * cubeSize)
                 this._scene.addChild(cube)
             }
